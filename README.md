@@ -17,3 +17,6 @@ Elle permet aussi de créer  :
 - la météo sur les 5 derniers jours
 - la météo comprend l'ensoleillement, la tempérarture, le taux d'humidité
 
+LISTER DES REQUÊtES POSSIBLES
+
+1.
