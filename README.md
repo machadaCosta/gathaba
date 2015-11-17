@@ -31,6 +31,29 @@ Pour l'API Météo, voici des possibles demandes de service d'une application cl
 
 2. Choix de l'API Github.
 
+3. Voici des requêtes HTTP POST :
+- créer un nouveau répertoire pour un utilisateur authentifier : https://api.github.com/user/repos avec en contenu l'objet JSON :
+`{
+"name": "Hello-World",
+"description": "This is your first repository",
+"homepage": "https://github.com",
+"private": false,
+"has_issues": true,
+"has_wiki": true,
+"has_downloads": true
+}`
+- créer une issue sur un répertoire : https://api.github.com/repos/machadacosta/bachamada/issues avec en contenu l'objet JSON :
+`{
+"title": "Not Clear",
+"body": "There is some english word in french text.",
+"assignee": "machadacosta",
+"milestone": 1,
+"labels": [
+"Label1",
+"Label2"
+]
+}`
+
 ## TESTER LES REQUÊTES
 
 1. Le test de la requête https://api.github.com/users/machadacosta/repos, avec Postman renvoie :
