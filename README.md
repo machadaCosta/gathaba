@@ -29,6 +29,8 @@ Pour l'API Météo, voici des possibles demandes de service d'une application cl
 - demander la météo du jour
 - demander la météo des 5 derniers jours
 
+2. Choix de l'API Github.
+
 ## TESTER LES REQUÊTES
 
 1. Le test de la requête https://api.github.com/users/machadacosta/repos, avec Postman renvoie :
