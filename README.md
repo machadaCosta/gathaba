@@ -19,7 +19,15 @@ Elle permet aussi de créer  :
 
 ## LISTER DES REQUÊtES POSSIBLES
 
-1.
+1. Pour l'API Github, voici des possibles demandes de service d'une application cliente :
+- demander la liste des répertoires d'un utilisateur
+- demander la liste des commits sur un répertoire
+- demander la liste des issues sur un répertoire
+- demander la liste des followers d'un utilisateur
+- demander le nombre de commit par jour sur un répertoire pour les 52 dernières semaines
+Pour l'API Météo, voici des possibles demandes de service d'une application cliente :
+- demander la météo du jour
+- demander la météo des 5 derniers jours
 
 ## TESTER LES REQUÊTES
 
