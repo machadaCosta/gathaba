@@ -32,7 +32,9 @@ Pour l'API Météo, voici des possibles demandes de service d'une application cl
 2. Choix de l'API Github.
 
 3. Voici des requêtes HTTP POST :
-- créer un nouveau répertoire pour un utilisateur authentifier : https://api.github.com/user/repos avec en contenu l'objet JSON :
+- créer un nouveau répertoire pour un utilisateur authentifier : 
+`https://api.github.com/user/repos`
+avec en contenu l'objet JSON :
 `{
 "name": "Hello-World",
 "description": "This is your first repository",
@@ -42,7 +44,9 @@ Pour l'API Météo, voici des possibles demandes de service d'une application cl
 "has_wiki": true,
 "has_downloads": true
 }`
-- créer une issue sur un répertoire : https://api.github.com/repos/machadacosta/bachamada/issues avec en contenu l'objet JSON :
+- créer une issue sur un répertoire : 
+`https://api.github.com/repos/machadacosta/bachamada/issues`
+avec en contenu l'objet JSON :
 `{
 "title": "Not Clear",
 "body": "There is some english word in french text.",
@@ -53,6 +57,18 @@ Pour l'API Météo, voici des possibles demandes de service d'une application cl
 "Label2"
 ]
 }`
+
+4. Voici des requêtes HTTP GET, pour obtenir :
+- la liste des répertoires de l'utilisateur machadacosta :
+`https://api.github.com/users/machadacosta/repos`
+- la liste des commits sur le répertoire bachamada de l'utilisateur machadacosta :
+`https://api.github.com/repos/machadacosta/bachamada/commits`
+- la liste des issues sur le répertoire bachamada de l'utilisateur machadacosta :
+`https://api.github.com/repos/machadacosta/bachamada/issues`
+- la liste des followers de l'utilisateur machadacosta
+`https://api.github.com/users/machadacosta/followers`
+- le nombre de commit par jour sur le répertoire bachamada de l'utilisateur machadacosta sur les 52 dernières semaines :
+`https://api.github.com/repos/machadacosta/bachamada/stats/participation`
 
 ## TESTER LES REQUÊTES
 
