@@ -196,4 +196,7 @@ ou ses répertoires ainsi que ceux de ses followers
 ** Changer l'utilisateur par défaut
 ** Logger un utilisateur via github
 
+3. Maquettes Client App. Mobile :
+![Ecran d'accueil](https://github.com/machadaCosta/gathaba_sarvaca/resources/gathaba_sarvaca.jpg)
+
 
