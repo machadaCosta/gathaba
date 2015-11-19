@@ -7,8 +7,7 @@ This project is about a client for Github Service.
  - les répertoires d'un utilisateur,
  - les problèmes d'un répertoire,
  - etc
-
-Elle permet aussi de créer  :
+ Elle permet aussi de créer  :
  - un répertoire, 
  - une branche dans un répertoire,
  - etc.
@@ -27,7 +26,7 @@ Elle permet aussi de créer  :
  - demander la liste des followers d'un utilisateur
  - demander le nombre de commit par jour sur un répertoire pour les 52 dernières semaines
 
-Pour l'API Météo, voici des possibles demandes de service d'une application cliente :
+ Pour l'API Météo, voici des possibles demandes de service d'une application cliente :
  - demander la météo du jour
  - demander la météo des 5 derniers jours
 
@@ -48,7 +47,7 @@ avec en contenu l'objet JSON :
 }`
  - créer une issue sur un répertoire : 
 `https://api.github.com/repos/machadacosta/bachamada/issues`
-avec en contenu l'objet JSON :
+ avec en contenu l'objet JSON :
 `{
 "title": "Not Clear",
 "body": "There is some english word in french text.",
@@ -179,8 +178,7 @@ avec en contenu l'objet JSON :
 
 2. Selon que l'application soit sur Mobile ou sur une page Web via un ordinateur, l'utilisateur n'a pas accès au même type d'interaction. En particulier, il preferera faire de la consultation et de l'édition simple sur une app. Mobile; en revanche il exigera des informations et une édition plus approfondies sur une app. Web.
 Voici une liste de fonctionnalités applicatives hiérarchisés et classées selon les 2 types Web ou Mobile :
-
-CLIENT MOBILE
+ CLIENT MOBILE
  * Voir la liste des répertoires d'un utilisateur par défaut 
 ou ses répertoires ainsi que ceux de ses followers
      * Voir les détails d'un répertoire
@@ -189,7 +187,7 @@ ou ses répertoires ainsi que ceux de ses followers
     * Changer l'utilisateur
     * Logger un utilisateur via github
 
-CLIENT WEB
+ CLIENT WEB
  * Voir la liste des répertoires d'un utilisateur par défaut
 ou ses répertoires ainsi que ceux de ses followers
  * Voir une brève description pour chaque répertoire
