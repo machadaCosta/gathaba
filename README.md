@@ -164,3 +164,14 @@ avec en contenu l'objet JSON :
 ...
 }
 ]`
+
+## Conception Application cliente
+
+1. Voici une liste de fonctionnalités (d'un point de vue utilisateur) :
+* Voir la liste des répertoires d'un utilisateur par défaut
+** Voir les détails d'un répertoire
+** Voir les statistiques d'un répertoire
+* Configurer l'utilisateur par défaut
+** Changer l'utilisateur
+** Logger un utilisateur via github
+
