@@ -4,35 +4,35 @@ This project is about a client for Github Service.
 ## ETUDE APIs
 
 1. L'API Github (https://developer.github.com/v3/) permet d'obtenir :
-- les répertoires d'un utilisateur,
-- les problèmes d'un répertoire,
-- etc
+ - les répertoires d'un utilisateur,
+ - les problèmes d'un répertoire,
+ - etc
 Elle permet aussi de créer  :
-- un répertoire, 
-- une branche dans un répertoire,
-- etc.
+ - un répertoire, 
+ - une branche dans un répertoire,
+ - etc.
 
 2. L'API Météo (http://openweathermap.org/forecast5) permet d'obtenir :
-- la météo du jour
-- la météo sur les 5 derniers jours
-- la météo comprend l'ensoleillement, la tempérarture, le taux d'humidité
+ - la météo du jour
+ - la météo sur les 5 derniers jours
+ - la météo comprend l'ensoleillement, la tempérarture, le taux d'humidité
 
 ## LISTER DES REQUÊtES POSSIBLES
 
 1. Pour l'API Github, voici des possibles demandes de service d'une application cliente :
-- demander la liste des répertoires d'un utilisateur
-- demander la liste des commits sur un répertoire
-- demander la liste des issues sur un répertoire
-- demander la liste des followers d'un utilisateur
-- demander le nombre de commit par jour sur un répertoire pour les 52 dernières semaines
+ - demander la liste des répertoires d'un utilisateur
+ - demander la liste des commits sur un répertoire
+ - demander la liste des issues sur un répertoire
+ - demander la liste des followers d'un utilisateur
+ - demander le nombre de commit par jour sur un répertoire pour les 52 dernières semaines
 Pour l'API Météo, voici des possibles demandes de service d'une application cliente :
-- demander la météo du jour
-- demander la météo des 5 derniers jours
+ - demander la météo du jour
+ - demander la météo des 5 derniers jours
 
 2. Choix de l'API Github.
 
 3. Voici des requêtes HTTP POST :
-- créer un nouveau répertoire pour un utilisateur authentifier : 
+ - créer un nouveau répertoire pour un utilisateur authentifier : 
 `https://api.github.com/user/repos`
 avec en contenu l'objet JSON :
 `{
@@ -44,7 +44,7 @@ avec en contenu l'objet JSON :
 "has_wiki": true,
 "has_downloads": true
 }`
-- créer une issue sur un répertoire : 
+ - créer une issue sur un répertoire : 
 `https://api.github.com/repos/machadacosta/bachamada/issues`
 avec en contenu l'objet JSON :
 `{
@@ -59,15 +59,15 @@ avec en contenu l'objet JSON :
 }`
 
 4. Voici des requêtes HTTP GET, pour obtenir :
-- la liste des répertoires de l'utilisateur machadacosta :
+ - la liste des répertoires de l'utilisateur machadacosta :
 `https://api.github.com/users/machadacosta/repos`
-- la liste des commits sur le répertoire bachamada de l'utilisateur machadacosta :
+ - la liste des commits sur le répertoire bachamada de l'utilisateur machadacosta :
 `https://api.github.com/repos/machadacosta/bachamada/commits`
-- la liste des issues sur le répertoire bachamada de l'utilisateur machadacosta :
+ - la liste des issues sur le répertoire bachamada de l'utilisateur machadacosta :
 `https://api.github.com/repos/machadacosta/bachamada/issues`
-- la liste des followers de l'utilisateur machadacosta
+ - la liste des followers de l'utilisateur machadacosta
 `https://api.github.com/users/machadacosta/followers`
-- le nombre de commit par jour sur le répertoire bachamada de l'utilisateur machadacosta sur les 52 dernières semaines :
+ - le nombre de commit par jour sur le répertoire bachamada de l'utilisateur machadacosta sur les 52 dernières semaines :
 `https://api.github.com/repos/machadacosta/bachamada/stats/participation`
 
 ## TESTER LES REQUÊTES
@@ -168,35 +168,37 @@ avec en contenu l'objet JSON :
 ## Conception Application cliente
 
 1. Voici une liste de fonctionnalités (d'un point de vue utilisateur) :
-* Voir la liste des répertoires d'un utilisateur par défaut
-** Voir les détails d'un répertoire
-** Voir les statistiques d'un répertoire
-* Configurer l'utilisateur par défaut
-** Changer l'utilisateur
-** Logger un utilisateur via github
+ * Voir la liste des répertoires d'un utilisateur par défaut
+  * Voir les détails d'un répertoire
+  * Voir les statistiques d'un répertoire
+ * Configurer l'utilisateur par défaut
+  * Changer l'utilisateur
+  * Logger un utilisateur via github
 
 2. Selon que l'application soit sur Mobile ou sur une page Web via un ordinateur, l'utilisateur n'a pas accès au même type d'interaction. En particulier, il preferera faire de la consultation et de l'édition simple sur une app. Mobile; en revanche il exigera des informations et une édition plus approfondies sur une app. Web.
 Voici une liste de fonctionnalités applicatives hiérarchisés et classées selon les 2 types Web ou Mobile :
 CLIENT MOBILE
-* Voir la liste des répertoires d'un utilisateur par défaut 
+ * Voir la liste des répertoires d'un utilisateur par défaut 
 ou ses répertoires ainsi que ceux de ses followers
-** Voir les détails d'un répertoire
-** Voir les statistiques d'un répertoire
-* Configurer l'utilisateur par défaut
-** Changer l'utilisateur
-** Logger un utilisateur via github
+     * Voir les détails d'un répertoire
+     * Voir les statistiques d'un répertoire
+ * Configurer l'utilisateur par défaut
+    * Changer l'utilisateur
+    * Logger un utilisateur via github
 CLIENT WEB
-* Voir la liste des répertoires d'un utilisateur par défaut
+ * Voir la liste des répertoires d'un utilisateur par défaut
 ou ses répertoires ainsi que ceux de ses followers
-* Voir une brève description pour chaque répertoire
-** Voir les détails d'un répertoire
-** Voir des statistiques approfondies d'un répertoire
-* Voir un résumé d'activité (issues des répertoires, derniers commits, pull request, ...)
-* Configurer un profil
-** Changer l'utilisateur par défaut
-** Logger un utilisateur via github
+ * Voir une brève description pour chaque répertoire
+     * Voir les détails d'un répertoire
+     * Voir des statistiques approfondies d'un répertoire
+ * Voir un résumé d'activité (issues des répertoires, derniers commits, pull request, ...)
+ * Configurer un profil
+     * Changer l'utilisateur par défaut
+     * Logger un utilisateur via github
 
 3. Maquettes Client App. Mobile :
-![Ecran d'accueil](https://github.com/machadaCosta/gathaba_sarvaca/resources/gathaba_sarvaca.jpg)
+![Ecran d'accueil](https://github.com/machadaCosta/gathaba_sarvaca/blob/master/resources/gathaba_sarvaca.jpg)
+![Ecran d'accueil](https://github.com/machadaCosta/gathaba_sarvaca/blob/master/resources/gathaba_sarvaca_config.jpg)
+![Ecran d'accueil](https://github.com/machadaCosta/gathaba_sarvaca/blob/master/resources/gathaba_sarvaca_details.jpg)
 
 
