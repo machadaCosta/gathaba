@@ -4,13 +4,14 @@ This project is about a client for Github Service.
 ## ETUDE APIs
 
 1. L'API Github (https://developer.github.com/v3/) permet d'obtenir :
- - les répertoires d'un utilisateur,
- - les problèmes d'un répertoire,
- - etc
- Elle permet aussi de créer  :
- - un répertoire, 
- - une branche dans un répertoire,
- - etc.
+  - les répertoires d'un utilisateur,
+  - les problèmes d'un répertoire,
+  - etc
+
+  Elle permet aussi de créer  :
+  - un répertoire, 
+  - une branche dans un répertoire,
+  - etc.
 
 2. L'API Météo (http://openweathermap.org/forecast5) permet d'obtenir :
  - la météo du jour
@@ -74,7 +75,8 @@ avec en contenu l'objet JSON :
 ## TESTER LES REQUÊTES
 
 1. Le test de la requête https://api.github.com/users/machadacosta/repos, avec Postman renvoie :
-`[
+```json
+[
 {
 "id": 39936429,
 "name": "bachamada",
@@ -164,7 +166,8 @@ avec en contenu l'objet JSON :
 },
 ...
 }
-]`
+]
+```
 
 ## Conception Application cliente
 
@@ -178,30 +181,29 @@ avec en contenu l'objet JSON :
 
 2. Selon que l'application soit sur Mobile ou sur une page Web via un ordinateur, l'utilisateur n'a pas accès au même type d'interaction. En particulier, il preferera faire de la consultation et de l'édition simple sur une app. Mobile; en revanche il exigera des informations et une édition plus approfondies sur une app. Web.
 Voici une liste de fonctionnalités applicatives hiérarchisés et classées selon les 2 types Web ou Mobile :
+
  CLIENT MOBILE
  * Voir la liste des répertoires d'un utilisateur par défaut 
-ou ses répertoires ainsi que ceux de ses followers
-     * Voir les détails d'un répertoire
-     * Voir les statistiques d'un répertoire
+ ou ses répertoires ainsi que ceux de ses followers
+    * Voir les détails d'un répertoire
+    * Voir les statistiques d'un répertoire
  * Configurer l'utilisateur par défaut
     * Changer l'utilisateur
     * Logger un utilisateur via github
 
  CLIENT WEB
  * Voir la liste des répertoires d'un utilisateur par défaut
-ou ses répertoires ainsi que ceux de ses followers
+ ou ses répertoires ainsi que ceux de ses followers
  * Voir une brève description pour chaque répertoire
-     * Voir les détails d'un répertoire
-     * Voir des statistiques approfondies d'un répertoire
+    * Voir les détails d'un répertoire
+    * Voir des statistiques approfondies d'un répertoire
  * Voir un résumé d'activité (issues des répertoires, derniers commits, pull request, ...)
  * Configurer un profil
-     * Changer l'utilisateur par défaut
-     * Logger un utilisateur via github
+    * Changer l'utilisateur par défaut
+    * Logger un utilisateur via github
 
 3. Maquettes Client App. Mobile :
 
 ![Ecran d'accueil](https://github.com/machadaCosta/gathaba_sarvaca/blob/master/resources/gathaba_sarvaca.png)
 ![Ecran d'accueil](https://github.com/machadaCosta/gathaba_sarvaca/blob/master/resources/gathaba_sarvaca_config.png)
 ![Ecran d'accueil](https://github.com/machadaCosta/gathaba_sarvaca/blob/master/resources/gathaba_sarvaca_details.png)
-
-
