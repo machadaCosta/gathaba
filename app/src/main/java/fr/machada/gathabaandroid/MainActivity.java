@@ -9,7 +9,15 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import fr.machada.gathabaandroid.service.GitHubService;
+import retrofit.GsonConverterFactory;
+import retrofit.Retrofit;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static final String API_BASE = "https://api.github.com";
+    Retrofit mRetrofit;
+    GitHubService mService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +34,17 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        prepareRequest();
+    }
+
+    private void prepareRequest() {
+        mRetrofit = new Retrofit.Builder()
+                .baseUrl(API_BASE)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        mService = mRetrofit.create(GitHubService.class);
     }
 
     @Override
