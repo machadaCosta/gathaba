@@ -1,6 +1,7 @@
 # gathaba_sarvaca
 This project is about a client for Github Service.
 
+#TD n°1
 ## ETUDE APIs
 
 1. L'API Github (https://developer.github.com/v3/) permet d'obtenir :
@@ -207,3 +208,31 @@ Voici une liste de fonctionnalités applicatives hiérarchisés et classées sel
 ![Ecran d'accueil](https://github.com/machadaCosta/gathaba_sarvaca/blob/master/resources/gathaba_sarvaca.png)
 ![Ecran d'accueil](https://github.com/machadaCosta/gathaba_sarvaca/blob/master/resources/gathaba_sarvaca_config.png)
 ![Ecran d'accueil](https://github.com/machadaCosta/gathaba_sarvaca/blob/master/resources/gathaba_sarvaca_details.png)
+
+#TD n°2
+
+## A] Etude des données d’une application mobile 
+1. Les données locales sont :
+ - utilisateur par défaut
+ - liste de répertoires
+ - statistiques d'un répertoire
+
+ Les données distantes sont :
+ - liste de repertoires
+ - statistiques d'un répertoire
+ 
+ Un répertoire (Repertory) est une donnée structurée composée de :
+ - un nom
+ - une date de création
+ - une taille
+ - un language
+ - une description
+ - la date du dernier push
+ - des statistiques (id to object statistics)
+ 
+ Des statistiques (Statistics) est une donnée structurée composée de :
+ - ...
+
+2. Les données précédemment listées sont stockées dans :
+ - les shared preferences : nom utilisateur par défaut
+ - une BDD SQLite : les données structurées comme un répertoire et les statistiques
