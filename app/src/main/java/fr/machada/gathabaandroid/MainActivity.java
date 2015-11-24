@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), String.format("OK"), Toast.LENGTH_SHORT).show();
                 List<Repo> allRepos = response.body();
                 for (int i = 0; i < allRepos.size(); i++)
-                    Log.i(TAG, String.format(" Un repo : %s", allRepos.get(i)));
+                    Log.i(TAG, String.format(" Un repo : %s", allRepos.get(i).getName()));
             }
 
             @Override
