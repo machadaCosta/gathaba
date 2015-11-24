@@ -9,7 +9,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
+import fr.machada.gathabaandroid.model.Repo;
 import fr.machada.gathabaandroid.service.GitHubService;
+import retrofit.Call;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 
@@ -36,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         prepareRequest();
+        constructRequest();
+    }
+
+    private void constructRequest() {
+        Call<List<Repo>> repos = mService.listRepos("machadacosta");
+
     }
 
     private void prepareRequest() {
