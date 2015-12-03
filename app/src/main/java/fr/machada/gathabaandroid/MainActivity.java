@@ -20,6 +20,7 @@ import java.util.List;
 
 import fr.machada.gathabaandroid.model.Repo;
 import fr.machada.gathabaandroid.service.GitHubService;
+import io.realm.Realm;
 import io.realm.RealmObject;
 import retrofit.Call;
 import retrofit.Callback;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     Retrofit mRetrofit;
     GitHubService mService;
     Call<List<Repo>> mRepos;
+    private Realm mRealm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +53,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        instantiateBDD();
         prepareRequest();
         constructRequest();
         executeRequest();
+    }
+
+    private void instantiateBDD() {
+        mRealm = Realm.getInstance(this);
     }
 
     private void executeRequest() {
