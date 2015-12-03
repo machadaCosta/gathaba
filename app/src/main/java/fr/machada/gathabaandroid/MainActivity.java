@@ -70,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Response<List<Repo>> response, Retrofit retrofit) {
                 Toast.makeText(getApplicationContext(), String.format("OK"), Toast.LENGTH_SHORT).show();
                 List<Repo> allRepos = response.body();
+
+                // Copy elements from Retrofit to Realm to persist them.
+                mRealm.beginTransaction();
+                List<Repo> realmRepos = mRealm.copyToRealmOrUpdate(allRepos);
+                mRealm.commitTransaction();
+
                 for (int i = 0; i < allRepos.size(); i++)
                     Log.i(TAG, String.format(" Un repo : %s", allRepos.get(i).getName()));
             }
