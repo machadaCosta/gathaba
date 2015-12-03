@@ -11,11 +11,7 @@ public class Repo extends RealmObject {
     @PrimaryKey
     private int id;
     private String name;
-
-    public Repo(String name) {
-        this.name = name;
-    }
-
+    
     public String getName() {
         return name;
     }
