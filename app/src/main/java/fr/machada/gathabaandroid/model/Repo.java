@@ -9,8 +9,8 @@ import io.realm.annotations.PrimaryKey;
 public class Repo extends RealmObject {
 
     @PrimaryKey
-    int id;
-    String name;
+    private int id;
+    private String name;
 
     public Repo(String name) {
         this.name = name;
