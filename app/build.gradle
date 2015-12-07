@@ -27,5 +27,5 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
     compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
     compile 'io.realm:realm-android:0.85.1'
-    compile 'com.github.AndroidDeveloperLB:ListViewVariants:178d62c608@aar'
+    compile 'de.greenrobot:eventbus:2.4.0'
 }
