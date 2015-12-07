@@ -3,6 +3,7 @@ package fr.machada.gathabaandroid;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
@@ -21,7 +22,20 @@ public class UserNameDialogFragment extends DialogFragment {
         //set content by adding edit text
         LayoutInflater inflater = getActivity().getLayoutInflater();
         //for lolipop only :builder.setView(R.layout.dialog_settings);
-        builder.setView(inflater.inflate(R.layout.dialog_settings,null));
+        builder.setView(inflater.inflate(R.layout.dialog_settings, null));
+        //add yes cancel button
+        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
         return builder.create();
     }
 }
