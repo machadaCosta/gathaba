@@ -1,5 +1,7 @@
 package fr.machada.gathabaandroid;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,6 +22,7 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import fr.machada.gathabaandroid.event.SettingsEvent;
+import fr.machada.gathabaandroid.model.PreferencesKeys;
 import fr.machada.gathabaandroid.model.Repo;
 import fr.machada.gathabaandroid.service.GitHubService;
 import io.realm.Realm;
@@ -147,12 +150,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void onEvent(SettingsEvent event){
+    public void onEvent(SettingsEvent event) {
         registerUsernameInPreferences(event.getUsername());
     }
 
     private void registerUsernameInPreferences(String username) {
-        
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(PreferencesKeys.USERNAME, username);
+        editor.commit();
     }
 
     @Override
