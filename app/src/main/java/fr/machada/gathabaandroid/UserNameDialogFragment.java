@@ -6,6 +6,11 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+
+import de.greenrobot.event.EventBus;
+import fr.machada.gathabaandroid.event.SettingsEvent;
 
 /**
  * Created by macha on 07/12/15.
@@ -21,13 +26,14 @@ public class UserNameDialogFragment extends DialogFragment {
         builder.setIcon(android.R.drawable.ic_menu_manage);
         //set content by adding edit text
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        //for lolipop only :builder.setView(R.layout.dialog_settings);
-        builder.setView(inflater.inflate(R.layout.dialog_settings, null));
+        final View settingsView = inflater.inflate(R.layout.dialog_settings, null);
+        builder.setView(settingsView);
         //add yes cancel button
         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                EditText editUsername = (EditText) settingsView.findViewById(R.id.editUsername);
+                EventBus.getDefault().post(new SettingsEvent(editUsername.getText().toString()));
             }
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
