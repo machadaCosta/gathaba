@@ -14,6 +14,9 @@ public class UserNameDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //create dialog box with Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        return super.onCreateDialog(savedInstanceState);
+        //set the title
+        builder.setTitle(R.string.set_user_name_title);
+        builder.setIcon(android.R.drawable.ic_menu_manage);
+        return builder.create();
     }
 }
