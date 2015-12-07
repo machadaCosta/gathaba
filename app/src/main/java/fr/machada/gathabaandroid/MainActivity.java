@@ -18,6 +18,8 @@ import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+import fr.machada.gathabaandroid.event.SettingsEvent;
 import fr.machada.gathabaandroid.model.Repo;
 import fr.machada.gathabaandroid.service.GitHubService;
 import io.realm.Realm;
@@ -143,4 +145,27 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public void onEvent(SettingsEvent event){
+        registerUsernameInPreferences(event.getUsername());
+    }
+
+    private void registerUsernameInPreferences(String username) {
+        
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+
 }
