@@ -93,8 +93,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void constructRequest() {
-        mRepos = mService.listRepos("machadacosta");
+        mRepos = mService.listRepos(getUsername());
 
+    }
+
+    private String getUsername() {
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        return sharedPref.getString(PreferencesKeys.USERNAME, "machadacosta");
     }
 
     private Gson getGsonConverterAdaptedToReaml() {
