@@ -2,9 +2,9 @@ package fr.machada.gathabaandroid;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,6 +18,7 @@ import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
@@ -27,6 +28,7 @@ import fr.machada.gathabaandroid.model.Repo;
 import fr.machada.gathabaandroid.service.GitHubService;
 import io.realm.Realm;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -181,5 +183,17 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    protected void onDestroy() {
+        super.onDestroy();
+        mRealm.close();
+    }
 
+
+    public List<Repo> getRepoList() {
+        RealmResults<Repo> repos = mRealm.where(Repo.class).findAll();
+        List<Repo> repoList = new ArrayList();
+        for (Repo repo : repos)
+            repoList.add(repo);
+        return repoList;
+    }
 }
