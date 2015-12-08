@@ -21,4 +21,8 @@
         <item name="android:background">?android:attr/colorPrimaryDark</item>
     </style>
 
+    <style name="FormItem">
+        <item name="android:padding">10dp</item>
+    </style>
+
 </resources>

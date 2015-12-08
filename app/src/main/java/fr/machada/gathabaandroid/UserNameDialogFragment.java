@@ -23,7 +23,6 @@ public class UserNameDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         //set the title
         builder.setTitle(R.string.set_user_name_title);
-        builder.setIcon(android.R.drawable.ic_menu_manage);
         //set content by adding edit text
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View settingsView = inflater.inflate(R.layout.dialog_settings, null);
