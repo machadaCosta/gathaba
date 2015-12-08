@@ -53,8 +53,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                showUserNameDialogBox();
             }
         });
 
@@ -147,11 +146,15 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            new UserNameDialogFragment().show(getFragmentManager(), null);
+            showUserNameDialogBox();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showUserNameDialogBox() {
+        new UserNameDialogFragment().show(getFragmentManager(), null);
     }
 
 
