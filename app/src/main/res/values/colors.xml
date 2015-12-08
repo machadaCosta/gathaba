@@ -5,4 +5,7 @@
     <color name="colorPrimaryMiddle">#344FFF</color>
     <color name="colorAccent">#FFCA1A</color>
     <color name="colorAccentDark">#B28900</color>
+    <color name="colorGreen">#01B22D</color>
+    <color name="colorRed">#FF000F</color>
+
 </resources>
