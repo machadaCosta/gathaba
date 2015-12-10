@@ -1,4 +1,4 @@
-package fr.machada.gathabaandroid;
+package fr.machada.gathabaandroid.controllers;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import de.greenrobot.event.EventBus;
+import fr.machada.gathabaandroid.R;
 import fr.machada.gathabaandroid.event.SettingsEvent;
 
 /**

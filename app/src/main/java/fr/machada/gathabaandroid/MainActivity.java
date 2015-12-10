@@ -1,6 +1,7 @@
 package fr.machada.gathabaandroid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -21,14 +23,18 @@ import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import fr.machada.gathabaandroid.event.SettingsEvent;
+import fr.machada.gathabaandroid.model.BundleKeys;
 import fr.machada.gathabaandroid.model.PreferencesKeys;
 import fr.machada.gathabaandroid.model.Repo;
 import fr.machada.gathabaandroid.service.GitHubService;
+import fr.machada.gathabaandroid.controllers.RepoDetailsActivity;
+import fr.machada.gathabaandroid.controllers.UserNameDialogFragment;
 import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
@@ -135,6 +141,22 @@ public class MainActivity extends AppCompatActivity {
                 }
                 // false : close the menu; true : not close the menu
                 return false;
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), RepoDetailsActivity.class);
+                Repo repo = mAdapter.getItem(position);
+
+                Repo clonedRepo = new Repo();
+                clonedRepo.setName(repo.getName());
+                clonedRepo.setFull_name(repo.getFull_name());
+                clonedRepo.setId(repo.getId());
+
+                intent.putExtra(BundleKeys.REPO, (Serializable) clonedRepo);
+                startActivity(intent);
             }
         });
     }

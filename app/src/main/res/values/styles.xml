@@ -7,22 +7,39 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:layout_margin">10dp</item>
-        <item name="android:background">?android:attr/colorPrimaryDark</item>
+        <item name="android:background">?android:attr/colorPrimary</item>
     </style>
 
     <style name="FormItem">
         <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="DetailsItem">
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+
+    <style name="DetailsItem.Left">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DetailsItem.Title">
+        <item name="android:textAllCaps">true</item>
     </style>
 
 </resources>

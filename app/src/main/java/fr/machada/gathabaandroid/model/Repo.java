@@ -1,12 +1,14 @@
 package fr.machada.gathabaandroid.model;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by macha on 24/11/15.
  */
-public class Repo extends RealmObject {
+public class Repo extends RealmObject implements Serializable {
 
     @PrimaryKey
     private int id;
