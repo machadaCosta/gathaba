@@ -1,10 +1,8 @@
 package fr.machada.gathabaandroid;
 
-import android.content.pm.ApplicationInfo;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -34,7 +32,7 @@ public class RepoListAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return getItem(position).getId();
     }
 
     @Override
@@ -47,8 +45,12 @@ public class RepoListAdapter extends BaseAdapter {
         ViewHolder holder = (ViewHolder) convertView.getTag();
         Repo item = getItem(position);
         holder.textRepoTitle.setText(item.getName());
-        holder.textRepoUser.setText(item.getName());
+        holder.textRepoUser.setText(item.getFull_name());
         return convertView;
+    }
+
+    public void remove(int position) {
+        mRepos.remove(position);
     }
 
     class ViewHolder {
@@ -60,6 +62,11 @@ public class RepoListAdapter extends BaseAdapter {
             textRepoUser = (TextView) view.findViewById(R.id.textRepoUser);
             view.setTag(this);
         }
+    }
+
+    public void addRepoList(List<Repo> repoList) {
+        for (Repo r : repoList)
+            mRepos.add(r);
     }
 }
 

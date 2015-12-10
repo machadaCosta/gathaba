@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,11 +41,12 @@ import retrofit.Retrofit;
 public class MainActivity extends AppCompatActivity {
 
     private static final String API_BASE = "https://api.github.com";
-    private static final String TAG = "MAIN ACTIVITY";
     Retrofit mRetrofit;
     GitHubService mService;
     Call<List<Repo>> mRepos;
     private Realm mRealm;
+    private List<Repo> mRepoList;
+    private RepoListAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +64,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         instantiateBDD();
+
         prepareRequest();
-        constructRequest();
-        executeRequest();
 
         instantiateListView();
     }
@@ -108,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
 
         // set creator
         SwipeMenuListView listView = (SwipeMenuListView) findViewById(R.id.listView);
-        listView.setAdapter(new RepoListAdapter(getRepoList()));
+        mAdapter = new RepoListAdapter(getRepoList());
+        listView.setAdapter(mAdapter);
         listView.setMenuCreator(creator);
 
         listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
@@ -117,9 +117,20 @@ public class MainActivity extends AppCompatActivity {
                 switch (index) {
                     case 0:
                         // open
+                        mRealm.beginTransaction();
+                        mRealm.copyToRealm(mAdapter.getItem(position));
+                        mRealm.commitTransaction();
                         break;
                     case 1:
-                        // delete
+                        // delete from realm db
+                        mRealm.beginTransaction();
+                        RealmResults<Repo> repoToRemove = mRealm.where(Repo.class).equalTo("id", mAdapter.getItemId(position)).findAll();
+                        if (repoToRemove.size() > 0)
+                            repoToRemove.get(0).removeFromRealm();
+                        mRealm.commitTransaction();
+                        //delete from adapter
+                        mAdapter.remove(position);
+                        mAdapter.notifyDataSetChanged();
                         break;
                 }
                 // false : close the menu; true : not close the menu
@@ -133,32 +144,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void executeRequest() {
+        mRepoList = new ArrayList<>();
         mRepos.enqueue(new Callback<List<Repo>>() {
 
             @Override
             public void onResponse(Response<List<Repo>> response, Retrofit retrofit) {
-                Toast.makeText(getApplicationContext(), String.format("OK"), Toast.LENGTH_SHORT).show();
-                List<Repo> allRepos = response.body();
-
-                // Copy elements from Retrofit to Realm to persist them.
-                mRealm.beginTransaction();
-                List<Repo> realmRepos = mRealm.copyToRealmOrUpdate(allRepos);
-                mRealm.commitTransaction();
-
-                for (int i = 0; i < allRepos.size(); i++)
-                    Log.i(TAG, String.format(" Un repo : %s", allRepos.get(i).getName()));
+                Toast.makeText(getApplicationContext(), String.format("%s %s", getString(R.string.repositories_retrieved_for_username), getUsername()), Toast.LENGTH_SHORT).show();
+                mRepoList = response.body();
+                refreshListView();
             }
 
             @Override
             public void onFailure(Throwable t) {
-                Toast.makeText(getApplicationContext(), String.format("KO"), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), String.format("%s", getString(R.string.wrong_username_or_not_connected)), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void constructRequest() {
         mRepos = mService.listRepos(getUsername());
-
     }
 
     private String getUsername() {
@@ -225,6 +229,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void onEvent(SettingsEvent event) {
         registerUsernameInPreferences(event.getUsername());
+        constructRequest();
+        executeRequest();
+    }
+
+    private void refreshListView() {
+        mAdapter.addRepoList(mRepoList);
+        mAdapter.notifyDataSetChanged();
     }
 
     private void registerUsernameInPreferences(String username) {
@@ -257,6 +268,12 @@ public class MainActivity extends AppCompatActivity {
         List<Repo> repoList = new ArrayList();
         for (Repo repo : repos)
             repoList.add(repo);
-        return repoList;
+        if (repoList.size() > 0)
+            return repoList;
+        else {
+            constructRequest();
+            executeRequest();
+            return mRepoList;
+        }
     }
 }
