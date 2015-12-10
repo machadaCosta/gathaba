@@ -11,6 +11,7 @@ public class Repo extends RealmObject {
     @PrimaryKey
     private int id;
     private String name;
+    private String full_name;
 
     public String getName() {
         return name;
@@ -26,5 +27,13 @@ public class Repo extends RealmObject {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getFull_name() {
+        return full_name;
+    }
+
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
     }
 }
