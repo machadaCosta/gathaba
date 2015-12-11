@@ -34,7 +34,7 @@
     </style>
 
     <style name="DetailsItem.Left">
-        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -42,4 +42,27 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <style name="DetailsItem.Button.Positif">
+        <item name="android:background">@color/colorGreen</item>
+    </style>
+
+    <style name="Divider.DividerLight">
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:background">?android:attr/colorAccent</item>
+    </style>
+
+    <style name="DetailsItem.Button.Negatif">
+        <item name="android:background">@color/colorRed</item>
+
+    </style>
+
+    <style name="DetailsItem.Button">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:paddingRight">@dimen/button_padding_horizontal</item>
+        <item name="android:paddingLeft">@dimen/button_padding_horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <dimen name="button_padding_horizontal">60dp</dimen>
 </resources>

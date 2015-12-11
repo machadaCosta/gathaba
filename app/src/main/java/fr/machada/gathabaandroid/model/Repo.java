@@ -3,6 +3,7 @@ package fr.machada.gathabaandroid.model;
 import java.io.Serializable;
 
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -14,6 +15,9 @@ public class Repo extends RealmObject implements Serializable {
     private int id;
     private String name;
     private String full_name;
+
+    @Ignore
+    private boolean isFollowed;
 
     public String getName() {
         return name;
@@ -37,5 +41,13 @@ public class Repo extends RealmObject implements Serializable {
 
     public void setFull_name(String full_name) {
         this.full_name = full_name;
+    }
+
+    public boolean isFollowed() {
+        return isFollowed;
+    }
+
+    public void setIsFollowed(boolean isNew) {
+        this.isFollowed = isNew;
     }
 }

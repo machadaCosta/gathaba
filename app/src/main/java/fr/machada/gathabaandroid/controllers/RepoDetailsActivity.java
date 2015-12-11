@@ -2,6 +2,7 @@ package fr.machada.gathabaandroid.controllers;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import fr.machada.gathabaandroid.R;
@@ -29,6 +30,12 @@ public class RepoDetailsActivity extends Activity {
 
             TextView textRepoPath = (TextView) findViewById(R.id.textRepoPath);
             textRepoPath.setText(r.getFull_name());
+
+            if (r.isFollowed()) {
+                findViewById(R.id.repoDetailsButtonNegatif).setVisibility(View.VISIBLE);
+                findViewById(R.id.repoDetailsButtonPositif).setVisibility(View.GONE);
+            }
+
         }
 
     }

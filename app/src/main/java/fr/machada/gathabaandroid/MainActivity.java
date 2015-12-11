@@ -28,13 +28,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
+import fr.machada.gathabaandroid.controllers.RepoDetailsActivity;
+import fr.machada.gathabaandroid.controllers.UserNameDialogFragment;
 import fr.machada.gathabaandroid.event.SettingsEvent;
 import fr.machada.gathabaandroid.model.BundleKeys;
 import fr.machada.gathabaandroid.model.PreferencesKeys;
 import fr.machada.gathabaandroid.model.Repo;
 import fr.machada.gathabaandroid.service.GitHubService;
-import fr.machada.gathabaandroid.controllers.RepoDetailsActivity;
-import fr.machada.gathabaandroid.controllers.UserNameDialogFragment;
 import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private Realm mRealm;
     private List<Repo> mRepoList;
     private RepoListAdapter mAdapter;
+    private SwipeMenuListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,62 +82,37 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void create(SwipeMenu menu) {
-                // create "open" item
-                SwipeMenuItem openItem = new SwipeMenuItem(
-                        getApplicationContext());
-                // set item background
-                openItem.setBackground(R.color.colorGreen);
-                // set item width
-                openItem.setWidth(Utils.dp2px(getApplicationContext(), 100));
-                // set item title
-                openItem.setTitle(R.string.follow);
-                // set item title fontsize
-                openItem.setTitleSize(18);
-                // set item title font color
-                openItem.setTitleColor(Color.WHITE);
                 // add to menu
-                menu.addMenuItem(openItem);
-
-                // create "delete" item
-                SwipeMenuItem deleteItem = new SwipeMenuItem(
-                        getApplicationContext());
-                // set item background
-                deleteItem.setBackground(R.color.colorRed);
-                // set item width
-                deleteItem.setWidth(Utils.dp2px(getApplicationContext(), 100));
-                deleteItem.setTitle(R.string.unfollow);
-                deleteItem.setTitleSize(18);
-                deleteItem.setTitleColor(Color.WHITE);
-                menu.addMenuItem(deleteItem);
+                switch (menu.getViewType()) {
+                    case 0:
+                        menu.addMenuItem(getMenuItem(false));
+                        break;
+                    case 1:
+                        menu.addMenuItem(getMenuItem(true));
+                        break;
+                }
             }
         };
 
         // set creator
-        SwipeMenuListView listView = (SwipeMenuListView) findViewById(R.id.listView);
+        mListView = (SwipeMenuListView) findViewById(R.id.listView);
         mAdapter = new RepoListAdapter(getRepoList());
-        listView.setAdapter(mAdapter);
-        listView.setMenuCreator(creator);
+        mListView.setAdapter(mAdapter);
+        mListView.setMenuCreator(creator);
 
-        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+        mListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        // open
-                        mRealm.beginTransaction();
-                        mRealm.copyToRealm(mAdapter.getItem(position));
-                        mRealm.commitTransaction();
-                        break;
-                    case 1:
-                        // delete from realm db
-                        mRealm.beginTransaction();
-                        RealmResults<Repo> repoToRemove = mRealm.where(Repo.class).equalTo("id", mAdapter.getItemId(position)).findAll();
-                        if (repoToRemove.size() > 0)
-                            repoToRemove.get(0).removeFromRealm();
-                        mRealm.commitTransaction();
-                        //delete from adapter
-                        mAdapter.remove(position);
-                        mAdapter.notifyDataSetChanged();
+                        Repo r = mAdapter.getItem(position);
+                        if (!r.isFollowed()) {
+                            // follow is on way
+                            followItem(position);
+                        } else {
+                            // delete from realm db
+                            deleteItem(position);
+                        }
                         break;
                 }
                 // false : close the menu; true : not close the menu
@@ -144,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), RepoDetailsActivity.class);
@@ -154,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 clonedRepo.setName(repo.getName());
                 clonedRepo.setFull_name(repo.getFull_name());
                 clonedRepo.setId(repo.getId());
+                clonedRepo.setIsFollowed(repo.isFollowed());
 
                 intent.putExtra(BundleKeys.REPO, (Serializable) clonedRepo);
                 startActivity(intent);
@@ -161,19 +138,74 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void deleteItem(int position) {
+        mRealm.beginTransaction();
+        RealmResults<Repo> repoToRemove = mRealm.where(Repo.class).equalTo("id", mAdapter.getItemId(position)).findAll();
+        if (repoToRemove.size() > 0)
+            repoToRemove.get(0).removeFromRealm();
+        mRealm.commitTransaction();
+        //delete from adapter
+        mAdapter.remove(position);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void followItem(int position) {
+        Repo repo = mAdapter.getItem(position);
+        mRealm.beginTransaction();
+        mRealm.copyToRealmOrUpdate(repo);
+        mRealm.commitTransaction();
+        //refresh adapter and listView
+        repo.setIsFollowed(true);
+        mAdapter.notifyDataSetChanged();
+        mListView.setAdapter(mAdapter);
+    }
+
+    private SwipeMenuItem getMenuItem(boolean isNew) {
+        // create "follow" item
+        SwipeMenuItem openItem = new SwipeMenuItem(
+                getApplicationContext());
+        if (isNew) {
+            // set item background
+            openItem.setBackground(R.color.colorGreen);
+            // set item title
+            openItem.setTitle(R.string.follow);
+        } else {
+            openItem.setBackground(R.color.colorRed);
+            openItem.setTitle(R.string.unfollow);
+        }
+        // set item width
+        openItem.setWidth(Utils.dp2px(getApplicationContext(), 100));
+        // set item title fontsize
+        openItem.setTitleSize(18);
+        // set item title font color
+        openItem.setTitleColor(Color.WHITE);
+        return openItem;
+    }
+
     private void instantiateBDD() {
         mRealm = Realm.getInstance(this);
     }
 
-    private void executeRequest() {
+    private void executeRequest(final boolean firstTime) {
         mRepoList = new ArrayList<>();
         mRepos.enqueue(new Callback<List<Repo>>() {
 
             @Override
             public void onResponse(Response<List<Repo>> response, Retrofit retrofit) {
                 Toast.makeText(getApplicationContext(), String.format("%s %s", getString(R.string.repositories_retrieved_for_username), getUsername()), Toast.LENGTH_SHORT).show();
-                mRepoList = response.body();
-                refreshListView();
+                List<Repo> result = response.body();
+                if (firstTime) {
+                    for (Repo r : result)
+                        mRepoList.add(r);
+                    mAdapter.notifyDataSetChanged();
+                } else {
+                    for (Repo r : result) {
+                        RealmResults<Repo> resultQuery = mRealm.where(Repo.class).equalTo("id", r.getId()).findAll();
+                        if (resultQuery.size() == 0)
+                            mRepoList.add(r);
+                    }
+                    refreshListView();
+                }
             }
 
             @Override
@@ -252,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
     public void onEvent(SettingsEvent event) {
         registerUsernameInPreferences(event.getUsername());
         constructRequest();
-        executeRequest();
+        executeRequest(false);
     }
 
     private void refreshListView() {
@@ -288,13 +320,15 @@ public class MainActivity extends AppCompatActivity {
     public List<Repo> getRepoList() {
         RealmResults<Repo> repos = mRealm.where(Repo.class).findAll();
         List<Repo> repoList = new ArrayList();
-        for (Repo repo : repos)
+        for (Repo repo : repos) {
+            repo.setIsFollowed(true);
             repoList.add(repo);
+        }
         if (repoList.size() > 0)
             return repoList;
         else {
             constructRequest();
-            executeRequest();
+            executeRequest(true);
             return mRepoList;
         }
     }

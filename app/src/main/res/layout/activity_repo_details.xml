@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <TextView
         android:id="@+id/textRepoName"
         style="@style/DetailsItem.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -18,7 +18,6 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/textRepoName"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/textRepoName"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -35,10 +34,40 @@
         android:layout_below="@id/textRepoPath" />
 
     <TextView
+        android:id="@+id/textDescription"
+        style="@style/DetailsItem.Left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/DetailsItem.Left"/>
+        android:layout_below="@id/repoDetailsDivider1"
+        android:text="@string/description" />
 
+    <TextView
+        style="@style/DetailsItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/repoDetailsDivider1"
+        android:layout_toRightOf="@id/textDescription"
+        android:text="Fake description about this famous project." />
 
+    <View
+        android:id="@+id/repoDetailsDivider2"
+        style="@style/Divider.DividerLight"
+        android:layout_below="@id/textDescription" />
 
+    <Button
+        android:id="@+id/repoDetailsButtonPositif"
+        style="@style/DetailsItem.Button.Positif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/repoDetailsDivider2"
+        android:text="@string/follow" />
+
+    <Button
+        android:id="@+id/repoDetailsButtonNegatif"
+        style="@style/DetailsItem.Button.Negatif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/repoDetailsDivider2"
+        android:text="@string/unfollow"
+        android:visibility="gone" />
 </RelativeLayout>

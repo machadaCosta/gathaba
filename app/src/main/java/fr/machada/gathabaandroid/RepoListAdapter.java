@@ -68,6 +68,14 @@ public class RepoListAdapter extends BaseAdapter {
         for (Repo r : repoList)
             mRepos.add(r);
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (mRepos.get(position).isFollowed())
+            return 0;
+        else
+            return 1;
+    }
 }
 
 
