@@ -1,5 +1,5 @@
-![GatHaba](https://github.com/machadaCosta/gathaba_sarvaca/blob/master/resources/gathaba-icon.png)
-# gathaba
+<img src="https://github.com/machadaCosta/gathaba_sarvaca/blob/master/resources/gathaba-icon.png" alt="GatHaba App"width="50" height="50">
+# GatHaba
 This project is about a client for Github Service. GitHub account is not required to use the application. The aim is to follow/unfollow public user's repositories. And see details on followed repositories.
 
 ![Home screen](https://github.com/machadaCosta/gathaba_sarvaca/blob/master/resources/gathaba_home.png)
