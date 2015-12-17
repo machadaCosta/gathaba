@@ -1,7 +1,6 @@
 package fr.machada.gathabaandroid.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
