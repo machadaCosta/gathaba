@@ -18,7 +18,7 @@ public class Repo extends RealmObject implements Serializable {
     private String full_name;
     private String description;
     private String created_at;
-    private Date pushed_at;
+    private String pushed_at;
     private int size;
     private String language;
     private int stargazers_count;
@@ -75,11 +75,11 @@ public class Repo extends RealmObject implements Serializable {
         this.created_at = created_at;
     }
 
-    public Date getPushed_at() {
+    public String getPushed_at() {
         return pushed_at;
     }
 
-    public void setPushed_at(Date pushed_at) {
+    public void setPushed_at(String pushed_at) {
         this.pushed_at = pushed_at;
     }
 
