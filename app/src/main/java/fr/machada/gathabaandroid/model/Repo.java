@@ -1,6 +1,7 @@
 package fr.machada.gathabaandroid.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
@@ -15,6 +16,13 @@ public class Repo extends RealmObject implements Serializable {
     private int id;
     private String name;
     private String full_name;
+    private String description;
+    private String created_at;
+    private Date pushed_at;
+    private int size;
+    private String language;
+    private int stargazers_count;
+    private int watchers_count;
 
     @Ignore
     private boolean isFollowed;
@@ -49,5 +57,61 @@ public class Repo extends RealmObject implements Serializable {
 
     public void setIsFollowed(boolean isNew) {
         this.isFollowed = isNew;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
+    public Date getPushed_at() {
+        return pushed_at;
+    }
+
+    public void setPushed_at(Date pushed_at) {
+        this.pushed_at = pushed_at;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public int getStargazers_count() {
+        return stargazers_count;
+    }
+
+    public void setStargazers_count(int stargazers_count) {
+        this.stargazers_count = stargazers_count;
+    }
+
+    public int getWatchers_count() {
+        return watchers_count;
+    }
+
+    public void setWatchers_count(int watchers_count) {
+        this.watchers_count = watchers_count;
     }
 }
