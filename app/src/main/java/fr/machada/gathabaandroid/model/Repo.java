@@ -27,6 +27,23 @@ public class Repo extends RealmObject implements Serializable {
     @Ignore
     private boolean isFollowed;
 
+    public Repo() {
+    }
+
+    public Repo(Repo repo) {
+        this.id = repo.getId();
+        this.name = repo.getName();
+        this.full_name = repo.getFull_name();
+        this.description = repo.getDescription();
+        this.created_at = repo.getCreated_at();
+        this.pushed_at = repo.getPushed_at();
+        this.size = repo.getSize();
+        this.language = repo.getLanguage();
+        this.stargazers_count = repo.getStargazers_count();
+        this.watchers_count = repo.getWatchers_count();
+        this.isFollowed = repo.isFollowed();
+    }
+
     public String getName() {
         return name;
     }

@@ -1,37 +1,30 @@
 package fr.machada.gathabaandroid;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
-import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import fr.machada.gathabaandroid.controllers.RepoDetailsActivity;
 import fr.machada.gathabaandroid.controllers.UserNameDialogFragment;
+import fr.machada.gathabaandroid.event.OnFollowRepoEvent;
 import fr.machada.gathabaandroid.event.SettingsEvent;
-import fr.machada.gathabaandroid.model.BundleKeys;
 import fr.machada.gathabaandroid.model.PreferencesKeys;
 import fr.machada.gathabaandroid.model.Repo;
 import fr.machada.gathabaandroid.service.GitHubService;
@@ -53,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private Realm mRealm;
     private List<Repo> mRepoList;
     private RepoListAdapter mAdapter;
-    private SwipeMenuListView mListView;
+    private RecyclerView mRecycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,116 +72,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void instantiateListView() {
-        SwipeMenuCreator creator = new SwipeMenuCreator() {
-
-            @Override
-            public void create(SwipeMenu menu) {
-                // add to menu
-                switch (menu.getViewType()) {
-                    case 0:
-                        menu.addMenuItem(getMenuItem(false));
-                        break;
-                    case 1:
-                        menu.addMenuItem(getMenuItem(true));
-                        break;
-                }
-            }
-        };
-
         // set creator
-        mListView = (SwipeMenuListView) findViewById(R.id.listView);
+        mRecycler = (RecyclerView) findViewById(R.id.repoRecycler);
         mAdapter = new RepoListAdapter(getRepoList());
-        mListView.setAdapter(mAdapter);
-        mListView.setMenuCreator(creator);
 
-        mListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                switch (index) {
-                    case 0:
-                        Repo r = mAdapter.getItem(position);
-                        if (!r.isFollowed()) {
-                            // follow is on way
-                            followItem(position);
-                        } else {
-                            // delete from realm db
-                            deleteItem(position);
-                        }
-                        break;
-                }
-                // false : close the menu; true : not close the menu
-                return false;
-            }
-        });
+        mRecycler.setAdapter(mAdapter);
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), RepoDetailsActivity.class);
-                Repo repo = mAdapter.getItem(position);
-
-                Repo clonedRepo = new Repo();
-                clonedRepo.setName(repo.getName());
-                clonedRepo.setFull_name(repo.getFull_name());
-                clonedRepo.setId(repo.getId());
-                clonedRepo.setIsFollowed(repo.isFollowed());
-                clonedRepo.setCreated_at(repo.getCreated_at());
-                clonedRepo.setDescription(repo.getDescription());
-                clonedRepo.setLanguage(repo.getLanguage());
-                clonedRepo.setPushed_at(repo.getPushed_at());
-                clonedRepo.setSize(repo.getSize());
-                clonedRepo.setStargazers_count(repo.getStargazers_count());
-                clonedRepo.setWatchers_count(repo.getWatchers_count());
-
-                intent.putExtra(BundleKeys.REPO, (Serializable) clonedRepo);
-                startActivity(intent);
-            }
-        });
+        LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecycler.setLayoutManager(manager);
     }
 
-    private void deleteItem(int position) {
+    private void deleteRepo(Repo repo) {
         mRealm.beginTransaction();
-        RealmResults<Repo> repoToRemove = mRealm.where(Repo.class).equalTo("id", mAdapter.getItemId(position)).findAll();
+        RealmResults<Repo> repoToRemove = mRealm.where(Repo.class).equalTo("id", repo.getId()).findAll();
         if (repoToRemove.size() > 0)
             repoToRemove.get(0).removeFromRealm();
         mRealm.commitTransaction();
-        //delete from adapter
-        mAdapter.remove(position);
-        mAdapter.notifyDataSetChanged();
     }
 
-    private void followItem(int position) {
-        Repo repo = mAdapter.getItem(position);
+    private void registerRepo(Repo repo) {
         mRealm.beginTransaction();
         mRealm.copyToRealmOrUpdate(repo);
         mRealm.commitTransaction();
-        //refresh adapter and listView
-        repo.setIsFollowed(true);
-        mAdapter.notifyDataSetChanged();
-        mListView.setAdapter(mAdapter);
     }
 
-    private SwipeMenuItem getMenuItem(boolean isNew) {
-        // create "follow" item
-        SwipeMenuItem openItem = new SwipeMenuItem(
-                getApplicationContext());
-        if (isNew) {
-            // set item background
-            openItem.setBackground(R.color.colorGreen);
-            // set item title
-            openItem.setTitle(R.string.follow);
-        } else {
-            openItem.setBackground(R.color.colorRed);
-            openItem.setTitle(R.string.unfollow);
-        }
-        // set item width
-        openItem.setWidth(Utils.dp2px(getApplicationContext(), 100));
-        // set item title fontsize
-        openItem.setTitleSize(18);
-        // set item title font color
-        openItem.setTitleColor(Color.WHITE);
-        return openItem;
-    }
 
     private void instantiateBDD() {
         mRealm = Realm.getInstance(this);
@@ -293,6 +201,14 @@ public class MainActivity extends AppCompatActivity {
         registerUsernameInPreferences(event.getUsername());
         constructRequest();
         executeRequest(false);
+    }
+
+    public void onEvent(OnFollowRepoEvent event) {
+        if (event.getToFollow())
+            registerRepo(event.getRepo());
+        else
+            deleteRepo(event.getRepo());
+
     }
 
     private void refreshListView() {
