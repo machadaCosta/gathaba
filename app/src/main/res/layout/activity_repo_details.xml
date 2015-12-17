@@ -42,24 +42,95 @@
         android:text="@string/description" />
 
     <TextView
+        android:id="@+id/textRepoDesc"
         style="@style/DetailsItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/repoDetailsDivider1"
-        android:layout_toRightOf="@id/textDescription"
-        android:text="Fake description about this famous project." />
+        android:layout_toRightOf="@id/textDescription" />
 
     <View
         android:id="@+id/repoDetailsDivider2"
         style="@style/Divider.DividerLight"
         android:layout_below="@id/textDescription" />
 
+    <TextView
+        android:id="@+id/textLanguage"
+        style="@style/DetailsItem.Left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/repoDetailsDivider2"
+        android:text="@string/language" />
+
+    <TextView
+        android:id="@+id/textRepoLang"
+        style="@style/DetailsItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/repoDetailsDivider2"
+        android:layout_toRightOf="@id/textLanguage" />
+
+    <TextView
+        android:id="@+id/textSize"
+        style="@style/DetailsItem.Left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/repoDetailsDivider2"
+        android:layout_toRightOf="@id/textRepoLang"
+        android:text="@string/size" />
+
+    <TextView
+        android:id="@+id/textRepoSize"
+        style="@style/DetailsItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/repoDetailsDivider2"
+        android:layout_toRightOf="@id/textSize" />
+
+    <TextView
+        android:id="@+id/textRepoStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBaseline="@id/textRepoSize"
+        android:layout_below="@id/repoDetailsDivider2"
+        android:layout_margin="10dp"
+        android:drawableLeft="@android:drawable/btn_star_big_on" />
+
+
+    <View
+        android:id="@+id/repoDetailsDivider3"
+        style="@style/Divider.DividerLight"
+        android:layout_below="@id/textLanguage" />
+
+    <TextView
+        android:id="@+id/textRepoLastDate"
+        style="@style/DetailsItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/repoDetailsDivider3"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textLastDate"
+        style="@style/DetailsItem.Left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/repoDetailsDivider3"
+        android:layout_toLeftOf="@id/textRepoLastDate"
+        android:text="@string/pushed_date" />
+
+    <View
+        android:id="@+id/repoDetailsDivider4"
+        style="@style/Divider.DividerLight"
+        android:layout_below="@id/textLastDate" />
+
     <Button
         android:id="@+id/repoDetailsButtonPositif"
         style="@style/DetailsItem.Button.Positif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/repoDetailsDivider2"
+        android:layout_below="@id/repoDetailsDivider4"
         android:text="@string/follow" />
 
     <Button
@@ -67,7 +138,7 @@
         style="@style/DetailsItem.Button.Negatif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/repoDetailsDivider2"
+        android:layout_below="@id/repoDetailsDivider4"
         android:text="@string/unfollow"
         android:visibility="gone" />
 </RelativeLayout>

@@ -8,4 +8,7 @@
     <string name="repositories_retrieved_for_username">Repositories retrieved for</string>
     <string name="wrong_username_or_not_connected">Username does not exist or device is not connected</string>
     <string name="description">Description:</string>
+    <string name="language">Language:</string>
+    <string name="size">Size:</string>
+    <string name="pushed_date">Last pushed date:</string>
 </resources>

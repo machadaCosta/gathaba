@@ -132,6 +132,13 @@ public class MainActivity extends AppCompatActivity {
                 clonedRepo.setFull_name(repo.getFull_name());
                 clonedRepo.setId(repo.getId());
                 clonedRepo.setIsFollowed(repo.isFollowed());
+                clonedRepo.setCreated_at(repo.getCreated_at());
+                clonedRepo.setDescription(repo.getDescription());
+                clonedRepo.setLanguage(repo.getLanguage());
+                clonedRepo.setPushed_at(repo.getPushed_at());
+                clonedRepo.setSize(repo.getSize());
+                clonedRepo.setStargazers_count(repo.getStargazers_count());
+                clonedRepo.setWatchers_count(repo.getWatchers_count());
 
                 intent.putExtra(BundleKeys.REPO, (Serializable) clonedRepo);
                 startActivity(intent);

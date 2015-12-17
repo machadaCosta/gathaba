@@ -26,10 +26,26 @@ public class RepoDetailsActivity extends Activity {
             textRepoName.setText(r.getName());
 
             TextView textRepoDate = (TextView) findViewById(R.id.textRepoDate);
-            textRepoDate.setText("12/12/30");
+            textRepoDate.setText(r.getCreated_at().substring(0, 10));
 
             TextView textRepoPath = (TextView) findViewById(R.id.textRepoPath);
             textRepoPath.setText(r.getFull_name());
+
+            TextView textRepoDesc = (TextView) findViewById(R.id.textRepoDesc);
+            textRepoDesc.setText(r.getDescription());
+
+            TextView textRepoSize = (TextView) findViewById(R.id.textRepoSize);
+            textRepoSize.setText(String.valueOf(r.getSize()));
+
+            TextView textRepoLang = (TextView) findViewById(R.id.textRepoLang);
+            textRepoLang.setText(r.getLanguage());
+
+            TextView textRepoLastDate = (TextView) findViewById(R.id.textRepoLastDate);
+            textRepoLastDate.setText(r.getPushed_at().substring(0, 10));
+
+            TextView textRepoStar = (TextView) findViewById(R.id.textRepoStar);
+            textRepoStar.setText(String.valueOf(r.getStargazers_count()));
+
 
             if (r.isFollowed()) {
                 findViewById(R.id.repoDetailsButtonNegatif).setVisibility(View.VISIBLE);
