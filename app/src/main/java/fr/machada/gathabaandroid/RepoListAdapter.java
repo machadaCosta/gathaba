@@ -14,6 +14,7 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 import fr.machada.gathabaandroid.controllers.RepoDetailsActivity;
 import fr.machada.gathabaandroid.event.OnFollowRepoEvent;
+import fr.machada.gathabaandroid.event.SeeRepoDetailsEvent;
 import fr.machada.gathabaandroid.model.BundleKeys;
 import fr.machada.gathabaandroid.model.Repo;
 
@@ -74,11 +75,7 @@ public class RepoListAdapter extends RecyclerView.Adapter {
         holder.repoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, RepoDetailsActivity.class);
-
-                Repo clonedRepo = new Repo(repo);
-                intent.putExtra(BundleKeys.REPO, (Serializable) clonedRepo);
-                mContext.startActivity(intent);
+                EventBus.getDefault().post(new SeeRepoDetailsEvent(repo));
             }
         });
 

@@ -1,6 +1,7 @@
 package fr.machada.gathabaandroid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,13 +19,17 @@ import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
+import fr.machada.gathabaandroid.controllers.RepoDetailsActivity;
 import fr.machada.gathabaandroid.controllers.UserNameDialogFragment;
 import fr.machada.gathabaandroid.event.OnFollowRepoEvent;
+import fr.machada.gathabaandroid.event.SeeRepoDetailsEvent;
 import fr.machada.gathabaandroid.event.SettingsEvent;
+import fr.machada.gathabaandroid.model.BundleKeys;
 import fr.machada.gathabaandroid.model.PreferencesKeys;
 import fr.machada.gathabaandroid.model.Repo;
 import fr.machada.gathabaandroid.service.GitHubService;
@@ -47,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     private List<Repo> mRepoList;
     private RepoListAdapter mAdapter;
     private RecyclerView mRecycler;
+    static final int REPO_REQUEST = 1;  // The request code
+    private Repo mRepo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,7 +216,14 @@ public class MainActivity extends AppCompatActivity {
             registerRepo(event.getRepo());
         else
             deleteRepo(event.getRepo());
+    }
 
+    public void onEvent(SeeRepoDetailsEvent event) {
+        mRepo = event.getRepo();
+        Intent intent = new Intent(getApplicationContext(), RepoDetailsActivity.class);
+        Repo clonedRepo = new Repo(mRepo);
+        intent.putExtra(BundleKeys.REPO, (Serializable) clonedRepo);
+        startActivityForResult(intent, REPO_REQUEST);
     }
 
     private void refreshListView() {
