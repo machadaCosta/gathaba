@@ -1,6 +1,7 @@
 package fr.machada.gathabaandroid.controllers;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -54,5 +55,19 @@ public class RepoDetailsActivity extends Activity {
 
         }
 
+    }
+
+    public void unfollowRepo(View view) {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra(BundleKeys.FOLLOW, false);
+        setResult(Activity.RESULT_OK, returnIntent);
+        this.finish();
+    }
+
+    public void followRepo(View view) {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra(BundleKeys.FOLLOW, true);
+        setResult(Activity.RESULT_OK, returnIntent);
+        this.finish();
     }
 }

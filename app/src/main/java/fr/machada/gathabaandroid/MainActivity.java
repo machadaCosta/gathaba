@@ -271,4 +271,26 @@ public class MainActivity extends AppCompatActivity {
             return mRepoList;
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == REPO_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                Boolean result = data.getBooleanExtra(BundleKeys.FOLLOW, false);
+                if (result) {
+                    registerRepo(mRepo);
+                    mRepo.setIsFollowed(true);
+                    mAdapter.notifyDataSetChanged();
+                }
+                else {
+                    deleteRepo(mRepo);
+                    mRepo.setIsFollowed(false);
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+        }
+    }
+
 }

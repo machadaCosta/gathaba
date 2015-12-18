@@ -131,7 +131,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/repoDetailsDivider4"
-        android:text="@string/follow" />
+        android:text="@string/follow"
+        android:onClick="followRepo"/>
 
     <Button
         android:id="@+id/repoDetailsButtonNegatif"
@@ -140,5 +141,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/repoDetailsDivider4"
         android:text="@string/unfollow"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:onClick="unfollowRepo"/>
 </RelativeLayout>

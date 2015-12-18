@@ -5,4 +5,5 @@ package fr.machada.gathabaandroid.model;
  */
 public class BundleKeys {
     public static final String REPO ="Repo" ;
+    public static final String FOLLOW ="Follow" ;
 }
