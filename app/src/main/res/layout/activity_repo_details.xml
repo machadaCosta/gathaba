@@ -52,7 +52,7 @@
     <View
         android:id="@+id/repoDetailsDivider2"
         style="@style/Divider.DividerLight"
-        android:layout_below="@id/textDescription" />
+        android:layout_below="@id/textRepoDesc" />
 
     <TextView
         android:id="@+id/textLanguage"
