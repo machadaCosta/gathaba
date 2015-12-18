@@ -108,6 +108,10 @@ public class RepoListAdapter extends RecyclerView.Adapter {
             return 1;
     }
 
+    public void remove(Repo repo) {
+        mRepos.remove(repo);
+    }
+
     private class RepoViewHolder extends RecyclerView.ViewHolder {
         TextView textRepoTitle;
         TextView textRepoUser;

@@ -285,8 +285,9 @@ public class MainActivity extends AppCompatActivity {
                     mAdapter.notifyDataSetChanged();
                 }
                 else {
-                    deleteRepo(mRepo);
                     mRepo.setIsFollowed(false);
+                    mAdapter.remove(mRepo);
+                    deleteRepo(mRepo);
                     mAdapter.notifyDataSetChanged();
                 }
             }
