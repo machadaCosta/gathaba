@@ -92,6 +92,7 @@ public class RepoListAdapter extends RecyclerView.Adapter {
         holder.repoUnfollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                repo.setIsFollowed(false);
                 mRepos.remove(repo);
                 EventBus.getDefault().post(new OnFollowRepoEvent(repo, false));
                 notifyDataSetChanged();
